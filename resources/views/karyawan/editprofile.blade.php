@@ -15,6 +15,7 @@
 
 @section('content')
 <form action="{{route('karyawan.update', $karyawan->nik)}}" method="POST" enctype="multipart/form-data" style="margin-top: 4rem">
+    @method('PUT')
     @csrf
     <div class="col">
         <div class="form-group boxed">

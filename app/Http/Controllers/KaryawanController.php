@@ -57,44 +57,44 @@ class KaryawanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request ,$id)
+    public function update(Request $request, $id)
     {
-       $nama_lengkap = $request->nama_lengkap;
-       $no_hp = $request->no_hp;
-       $password = Hash::make($request->password);
-       $karyawan = DB::table('karyawans')->where('nik', $id)->first();
+        $nama_lengkap = $request->nama_lengkap;
+        $no_hp = $request->no_hp;
+        $password = Hash::make($request->password);
+        $karyawan = DB::table('karyawans')->where('nik', $id)->first();
 
-       if ($request->hasFile('foto')) {
-        $foto = $id . "." . $request->file('foto')->getClientOriginalExtension();
-       } else {
-        $foto = $karyawan->foto;
-       }
+        if ($request->hasFile('foto')) {
+            $foto = $id . "." . $request->file('foto')->getClientOriginalExtension();
+        } else {
+            $foto = $karyawan->foto;
+        }
 
-       if (empty($request->password)) {
-        $data = [
-            'nama_lengkap' => $nama_lengkap,
-            'no_hp' => $no_hp,
-        ];
-       } else {
-        $data = [
-            'nama_lengkap' => $nama_lengkap,
-            'no_hp' => $no_hp,
-            'password' => $password,
-        ];
-       }
+        if (empty($request->password)) {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'foto' => $foto,
+            ];
+        } else {
+            $data = [
+                'nama_lengkap' => $nama_lengkap,
+                'no_hp' => $no_hp,
+                'password' => $password,
+                'foto' => $foto,
+            ];
+        }
 
-       $update = DB::table('karyawans')->where('nik', $id)->update($data);
-       if ($update) {
-       if ($request->hasFile('foto')) {
-        $folderPath = "public/uploads/karyawan/";
-        $request->file('foto')->move($folderPath, $foto);
-       }
-    return Redirect::back()->with(['success' => 'Data Berhasil Di Update']);
-       } else {
-        return Redirect::back()->with(['error' => 'Data Gagal Di Update']);
-       }
-
-
+        $update = DB::table('karyawans')->where('nik', $id)->update($data);
+        if ($update) {
+            if ($request->hasFile('foto')) {
+                $folderPath = "public/uploads/karyawan/";
+                $request->file('foto')->storeAs($folderPath, $foto);
+            }
+            return Redirect::back()->with(['success' => 'Data Berhasil Di Update']);
+        } else {
+            return Redirect::back()->with(['error' => 'Data Gagal Di Update']);
+        }
     }
 
     /**
