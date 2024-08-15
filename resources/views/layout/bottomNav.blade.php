@@ -27,7 +27,7 @@
             <strong>Docs</strong>
         </div>
     </a>
-    <a href="javascript:;" class="item">
+    <a href="{{route('karyawan.edit', Auth::guard('karyawan')->user()->nik)}}" class="item  {{ ((\Route::is('karyawan'))) ? 'active' : '' }}">
         <div class="col">
             <ion-icon name="people-outline" role="img" class="md hydrated" aria-label="people outline"></ion-icon>
             <strong>Profile</strong>

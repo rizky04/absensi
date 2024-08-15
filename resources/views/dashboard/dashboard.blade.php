@@ -7,8 +7,8 @@
             <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
         </div>
         <div id="user-info">
-            <h2 id="user-name">Adam Abdi Al A'la</h2>
-            <span id="user-role">Head of IT</span>
+            <h2 id="user-name">{{Auth::guard('karyawan')->user()->nama_lengkap}}</h2>
+            <span id="user-role">{{Auth::guard('karyawan')->user()->jabatan}}</span>
         </div>
     </div>
 </div>
@@ -113,12 +113,13 @@
     </div>
 
     <div id="rekappresensi">
+        <h3>Rekap Presensi {{$namabulan[$bulanini]}} Tahun {{$tahunini}}</h3>
       <div class="row">
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem;">
                         <span class="badge bg-danger" style="position: absolute; top:3px; right:10px; font-size:0.6rem;">
-                        10
+                        {{$rekappresensi != null ? $rekappresensi->jmlhadir : 0}}
                         </span>
                         <ion-icon name="accessibility-outline" style="font-size: 1.6rem;" class="text-primary mb-1"></ion-icon>
                         <span style="font-size: 0.8rem; font-weight: 500;">Hadir</span>
@@ -129,10 +130,10 @@
                 <div class="card">
                     <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem;">
                         <span class="badge bg-danger" style="position: absolute; top:3px; right:10px; font-size:0.6rem;">
-                        10
+                        0
                         </span>
                         <ion-icon name="newspaper-outline" style="font-size: 1.6rem;" class="text-success mb-1"></ion-icon>
-                        <span style="font-size: 0.8rem; font-weight: 500;">Izin</span>
+                        <span style="font-size: 0.8rem; font-weight: 500;"><br>Izin</span>
                     </div>
                 </div>
             </div>
@@ -140,7 +141,7 @@
                 <div class="card">
                     <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem;">
                         <span class="badge bg-danger" style="position: absolute; top:3px; right:10px; font-size:0.6rem;">
-                        10
+                        0
                         </span>
                         <ion-icon name="medkit-outline" style="font-size: 1.6rem;" class="text-warning mb-1"></ion-icon>
                         <span style="font-size: 0.8rem; font-weight: 500;">Sakit</span>
@@ -151,10 +152,10 @@
                 <div class="card">
                     <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem;">
                         <span class="badge bg-danger" style="position: absolute; top:3px; right:10px; font-size:0.6rem;">
-                        10
+                            {{$rekappresensi != null ? $rekappresensi->jmlterlambat : 0}}
                         </span>
                         <ion-icon name="alarm-outline" style="font-size: 1.6rem;" class="text-danger mb-1"></ion-icon>
-                        <span style="font-size: 0.8rem; font-weight: 500;">Hadir</span>
+                        <span style="font-size: 0.8rem; font-weight: 500;">Telat</span>
                     </div>
                 </div>
             </div>
@@ -197,48 +198,21 @@
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel">
                 <ul class="listview image-listview">
+                    @foreach ($leaderboard as $d)
                     <li>
                         <div class="item">
                             <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                             <div class="in">
-                                <div>Edward Lindgren</div>
-                                <span class="text-muted">Designer</span>
+                                <div>
+                                    <b>{{$d->nama_lengkap}}</b> <br>
+                                    <small class="text-muted">{{$d->jabatan}}</small></div>
                             </div>
+                            <span class="badge {{ $d->jam_in < "08:00:00" ? "badge-success" : "badge-success"}}">
+                                {{ $d->jam_in }}
+                            </span>
                         </div>
                     </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Emelda Scandroot</div>
-                                <span class="badge badge-primary">3</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item">
-                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                            <div class="in">
-                                <div>Henry Bove</div>
-                            </div>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
 

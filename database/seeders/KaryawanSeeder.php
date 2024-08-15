@@ -15,10 +15,10 @@ class KaryawanSeeder extends Seeder
     public function run(): void
     {
         DB::table('karyawans')->insert([
-            'nik' => '1234',
-            'nama_lengkap' => 'amin',
-            'email' => 'aminrizky94@gmail.com',
-            'jabatan' => 'IT Manager',
+            'nik' => '4321',
+            'nama_lengkap' => 'amina',
+            'email' => 'aminrizky945@gmail.com',
+            'jabatan' => 'IT Asmen',
             'no_hp' => '083119482925',
             'password' => Hash::make('admin123'),
         ]);
