@@ -8,7 +8,7 @@
                 @php
                     $path = Storage::url('uploads/karyawan/'.Auth::guard('karyawan')->user()->foto);
                 @endphp
-                <img src="{{ url($path) }}" alt="avatar" class="imaged w64 rounded">
+                <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="height: 70px">
             @else
             <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
             @endif
@@ -212,11 +212,12 @@
                             <div class="in">
                                 <div>
                                     <b>{{$d->nama_lengkap}}</b> <br>
-                                    <small class="text-muted">{{$d->jabatan}}</small></div>
+                                    <small class="text-muted">{{$d->jabatan}}</small>
+                                </div>
+                                <span class="badge {{ $d->jam_in < "08:00:00" ? "badge-success" : "badge-danger"}}">
+                                    {{ $d->jam_in }}
+                                </span>
                             </div>
-                            <span class="badge {{ $d->jam_in < "08:00:00" ? "badge-success" : "badge-success"}}">
-                                {{ $d->jam_in }}
-                            </span>
                         </div>
                     </li>
                     @endforeach

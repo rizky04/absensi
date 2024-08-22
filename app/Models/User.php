@@ -32,6 +32,12 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        // ...
+    ];
+
     /**
      * Get the attributes that should be cast.
      *
